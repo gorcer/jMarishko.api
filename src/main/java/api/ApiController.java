@@ -1,5 +1,6 @@
 package api;
 
+import org.json.simple.JSONObject;
 import spark.Spark;
 
 public class ApiController {
@@ -10,10 +11,20 @@ public class ApiController {
 		    exception.printStackTrace();
 		});
 		
-		Spark.get("/say/:phrase/:userName", (request, response) -> {
+		Spark.before((request, response) -> {
 			
 			if (DBManager.connection == null)
 				DBManager.Connect();
+			
+			/*
+			 *  String version =  request.params(":version");
+			if (version != "0.1") {
+				Spark.halt(401, "Version error " +version);
+			}	*/	    
+		});
+		
+		Spark.get("/:version/getAnswer/:userName/:phrase/", (request, response) -> {
+											
 			
 			String phrase =  request.params(":phrase");
 			String UserName = request.params(":userName");
@@ -29,12 +40,50 @@ public class ApiController {
     		//---Answer
         	MaMessage Answer = WordMgr.getAnswer(Author,msg);
     		
+        	
+        	JSONObject resultJSON = new JSONObject();
+        	
         	if (Answer == null) {
-        		return "There is no answer on your question";
+        		resultJSON.put("answer", null);
+        	} else {
+        		resultJSON.put("answer", Answer.body);
         	}
     		
-			return "Your question is: " + request.params(":phrase") + "<br/>"+
-					"Your answer is " + Answer.body;
+        	return resultJSON.toString();
+		});
+		
+		Spark.get("/:version/getHello/:userName/", (request, response) -> {
+			
+			MUser u = UserMgr.getUserByName(request.params(":userName"));
+			MaMessage msg = WordMgr.getHello(u);
+			
+			JSONObject resultJSON = new JSONObject();
+			
+			if (msg == null) {
+				resultJSON.put("hello", null);
+			} else {
+				resultJSON.put("hello", msg.body);
+			}
+			
+			return resultJSON.toString();
+			
+		});
+		
+		Spark.get("/:version/getSomething/:userName/", (request, response) -> {
+			
+			MUser u = UserMgr.getUserByName(request.params(":userName"));
+			MaMessage msg = WordMgr.getSomething(u);
+			
+			JSONObject resultJSON = new JSONObject();
+			
+			if (msg == null) {
+				resultJSON.put("something", null);
+			} else {
+				resultJSON.put("something", msg.body);
+			}
+			
+			return resultJSON.toString();
+			
 		});
     }
 }

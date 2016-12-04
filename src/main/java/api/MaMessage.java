@@ -44,8 +44,8 @@ public class MaMessage {
 	private void setBody(String msg) {
 		// TODO Auto-generated method stub
 		
-		if (msg.length()>100) 
-		msg = msg.substring(0, 100);
+		if (msg.length()>1000) 
+		msg = msg.substring(0, 1000);
 		
 		body=msg;
 	}

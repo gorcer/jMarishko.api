@@ -54,12 +54,12 @@ public class WordMgr {
 			
 		
 		// Если пользователь досылает сообщения, объединять их в одно
-		if (lm!=null)		
+		/*if (lm!=null)		
 		if (lm.type=='>')
 		{
 		// msg = WordMgr.AppendMessage(lm, msg);
 		 lm = lm.owner.getLastMsg('<');
-		}
+		}*/
     	
 			
 		msg.id=DBManager.processMessageByMask(msg, user);
