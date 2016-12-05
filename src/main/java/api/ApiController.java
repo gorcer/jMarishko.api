@@ -4,7 +4,7 @@ import org.json.simple.JSONObject;
 import spark.Spark;
 
 public class ApiController {
-	public static void main(String[] args) {
+	public void init() {
         
 
 		Spark.exception(Exception.class, (exception, request, response) -> {
