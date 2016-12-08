@@ -1,6 +1,7 @@
 package com.gorcer.jMarishko.api;
 
 import org.json.simple.JSONObject;
+
 import spark.Spark;
 
 public class ApiController {
@@ -23,7 +24,7 @@ public class ApiController {
 			}	*/	    
 		});
 		
-		Spark.get("/:version/getAnswer/:userName/:phrase/", (request, response) -> {
+		Spark.get("/:version/getAnswer/:phrase/:userName/", (request, response) -> {
 											
 			
 			String phrase =  request.params(":phrase");
@@ -34,6 +35,7 @@ public class ApiController {
         	
         	MUser Author = UserMgr.getUserByName(UserName);
         	msg.owner = Author;
+        	msg = WordMgr.AppendIfItNeed(Author, msg);
         	
         	WordMgr.processUserMessage(Author, msg);
 			

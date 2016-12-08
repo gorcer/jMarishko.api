@@ -13,6 +13,13 @@ public class WordMgr {
 	public static Vector<MUser> Wait4Somthing = null;
 	private static Timer timer = null;
 	
+	/**
+	 * Получить ответ
+	 * 
+	 * @param user
+	 * @param msg
+	 * @return
+	 */
 	static public MaMessage getAnswer(MUser user, MaMessage msg)
 	{		
 		MaMessage ans = DBManager.getAnswer(msg, user, true);
@@ -34,6 +41,12 @@ public class WordMgr {
 		return ans;
 	}
 	
+	/**
+	 * Обработка системных сообщений
+	 * 
+	 * @param msg
+	 * @return
+	 */
 	static private boolean SystemMessage(MaMessage msg)
 	{
 		//дописать
@@ -98,6 +111,12 @@ public class WordMgr {
 		return(msg);	
 	}
 
+	/**
+	 * Обработка случайной фразы в диалоге, считается что фраза начинает новую тему
+	 * 
+	 * @param user
+	 * @param msg
+	 */
 	private static void processSomething(MUser user, MaMessage msg) {
 		DBManager.addSomething(msg);
 		
@@ -107,21 +126,39 @@ public class WordMgr {
 		DBManager.processDialog(user,link_id);
 	}
 
+	/**
+	 * Проверка что сообщение - случайная фраза
+	 * 
+	 * @param lm
+	 * @param msg
+	 * @return
+	 */
 	private static boolean likeSomething(MaMessage lm, MaMessage msg) {
 		
 		return (msg.saytime-lm.saytime>MaConfig.likeSomethingTime);
 	}
 
+	/**
+	 * Обработка приветствия
+	 * 
+	 * @param user
+	 * @param msg
+	 */
 	private static void processHello(MUser user, MaMessage msg) {
 
 		DBManager.addHello(msg);
 		int link_id=LinkMessages(null,msg);
 		
 		if (link_id!=0)
-		DBManager.processDialog(user,link_id);
-		
+		DBManager.processDialog(user,link_id);		
 	}
 
+	/**
+	 * Связь двух фраз
+	 * @param msg1
+	 * @param msg2
+	 * @return
+	 */
 	private static int LinkMessages(MaMessage msg1, MaMessage msg2) {
 	//	if (msg1==null || msg2==null ) return 0;
 		
@@ -130,7 +167,11 @@ public class WordMgr {
 	}
 
 	
-	
+	/**
+	 * Получение маски - нормализация сообщения для удобного сравнения
+	 * @param txt
+	 * @return
+	 */
 	static public String getMask(String txt)
 	{
 		String msk = "";
@@ -169,7 +210,11 @@ public class WordMgr {
 		return(msk);
 	}
 
-	
+	/**
+	 * Фонетическая нормализация текста
+	 * @param str
+	 * @return
+	 */
 	private static String getPhoneticMask(String str) {
 
 		String result="";
@@ -235,6 +280,12 @@ public class WordMgr {
 		return result;
 	}
 
+	/**
+	 * Вырезаем слова паразиты
+	 * 
+	 * @param msk
+	 * @return
+	 */
 	private static String CropParasiteWords(String msk) {
 		
 		String result=null;
@@ -302,6 +353,12 @@ public class WordMgr {
 		return(result);
 	}
 
+	/**
+	 * Вырезаем повторяющиеся символы
+	 * 
+	 * @param msk
+	 * @return
+	 */
 	private static String CropRepeatSymbols(String msk) {
 		String result="";
 		char last = 0;
@@ -326,15 +383,28 @@ public class WordMgr {
 		
 	}
 
+	/**
+	 * Получить приветственное сообщение
+	 * @param u
+	 * @return
+	 */
 	public static MaMessage getHello(MUser u) {
 		
 		MaMessage msg = DBManager.getHello(u);
-		u.addLog(msg,'<');
+		
+		if (msg != null)
+			u.addLog(msg,'<');
 		
 		return msg;
 		
 	}
 
+	/**
+	 * Добавляет пользователя в список ожидающих случайной фразы
+	 * @deprecated из skype-версии
+	 * 
+	 * @param user
+	 */
 	public static void addUser2WaitSomething(MUser user) {
 
 		if (Wait4Somthing==null)
@@ -346,6 +416,9 @@ public class WordMgr {
 		
 	}
 
+	/**
+	 * @deprecated
+	 */
 	private static void initTimer() {
 		
 		if (timer==null)
@@ -366,6 +439,9 @@ public class WordMgr {
 		
 	}
 
+	/**
+	 * @deprecated
+	 */
 	protected static void processWait4SomethingList() {
 
 	/*	MUser u=null;
@@ -392,9 +468,16 @@ public class WordMgr {
 		
 	}
 
+	/**
+	 * Поулчить случайную фразу
+	 * @param u
+	 * @return
+	 */
 	public static MaMessage getSomething(MUser u) {
 		MaMessage msg = DBManager.getSomething(u, false);
-		u.addLog(msg,'<');
+		
+		if (msg != null)
+			u.addLog(msg,'<');
 		
 		return msg;
 	}
