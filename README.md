@@ -17,4 +17,6 @@ API-сервер для самообучаемого чат-бота Мариш�
 
 /0.1/getSometing/{userName}/
 
+To run server type:
 
+mvn exec:java -Dexec.mainClass="api.ApiController"
