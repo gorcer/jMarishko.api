@@ -48,7 +48,7 @@
                 <manifest>
                   <addClasspath>true</addClasspath>
                   <classpathPrefix>lib/</classpathPrefix>
-                  <mainClass>api.ApiController</mainClass>
+                  <mainClass>com.gorcer.jMarishko.api.ApiController</mainClass>
                 </manifest>
              </archive>
          </configuration>
