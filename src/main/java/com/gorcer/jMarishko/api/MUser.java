@@ -39,7 +39,6 @@ public class MUser {
 			}
 		}
 		
-		
 		msg.type = type;
 		msg.owner = this;
 		
@@ -62,7 +61,7 @@ public class MUser {
 
 	public void thinkAboutSomething() {
 
-		this.wait_time = System.currentTimeMillis()/1000 + Config.Wait4Something;
+		this.wait_time = System.currentTimeMillis()/1000 + MaConfig.Wait4Something;
 		WordMgr.addUser2WaitSomething(this);
 		
 		

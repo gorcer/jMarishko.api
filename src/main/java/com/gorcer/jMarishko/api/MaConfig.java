@@ -1,6 +1,6 @@
 package com.gorcer.jMarishko.api;
 
-public class Config {
+public class MaConfig {
 	
 	public static String botname = "skmarishko";
 	
@@ -16,7 +16,7 @@ public class Config {
 	
 	
 	
-	public Config()
+	public MaConfig()
 	{
 		
 	}

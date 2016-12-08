@@ -102,7 +102,7 @@ public class DBManager {
 					" t1.mask like '"+word.mask+"'" +
 					" group by t2.soder" +
 					" order by tl.ic desc" +
-					" limit " + Config.AnswerCloudSize + ") as tt" +
+					" limit " + MaConfig.AnswerCloudSize + ") as tt" +
 					" order by rand()"
 					;
 	
@@ -161,7 +161,7 @@ public class DBManager {
 					DialogLikeSQL  +
 					" group by t2.soder" +
 					" order by " + sort +
-					" limit " + Config.AnswerCloudSize + ") as tt" +
+					" limit " + MaConfig.AnswerCloudSize + ") as tt" +
 					" order by rand()"
 					;
 	
@@ -652,7 +652,7 @@ public class DBManager {
 					 " inner join talk t on t.id=ta.talk_id" +
 					 " where ta.isHello=1" +
 					 " order by ta.isHello desc, t.ic desc" +
-					 " Limit " + Config.HelloCloudSize +
+					 " Limit " + MaConfig.HelloCloudSize +
 					 " ) as tt" +
 					 " order by rand()" +
 					 " limit 1";
@@ -710,7 +710,7 @@ public class DBManager {
 					 " inner join talk_attr ta on ta.talk_id=t.id and ta.isSomething=1" +
 					 " " + addSql + 					 
 					 " order by ta.isSomething desc, t.ic desc" +
-					 " Limit " + Config.SomethingCloudSize +
+					 " Limit " + MaConfig.SomethingCloudSize +
 					 " ) as tt" +
 					 " order by rand()" +
 					 " limit 1";

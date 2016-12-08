@@ -40,7 +40,7 @@ public class UserMgr extends Vector<MUser>{
 		
 		MUser user = UserMgr.CreateUser(UserName);
 		um.add(user);
-		user.isAllow = (Config.open2all || isAllow2useBot(UserName));
+		user.isAllow = (MaConfig.open2all || isAllow2useBot(UserName));
 		
 		return(user);
 	}
@@ -66,7 +66,7 @@ public class UserMgr extends Vector<MUser>{
 		
 		for (String user: vector)
 		{
-			if (user.equals(Config.botname)) continue;
+			if (user.equals(MaConfig.botname)) continue;
 			if (u1==null)
 			u1=getUserByName(user);
 			else

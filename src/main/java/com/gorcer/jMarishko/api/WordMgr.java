@@ -109,7 +109,7 @@ public class WordMgr {
 
 	private static boolean likeSomething(MaMessage lm, MaMessage msg) {
 		
-		return (msg.saytime-lm.saytime>Config.likeSomethingTime);
+		return (msg.saytime-lm.saytime>MaConfig.likeSomethingTime);
 	}
 
 	private static void processHello(MUser user, MaMessage msg) {
@@ -350,7 +350,7 @@ public class WordMgr {
 		
 		if (timer==null)
 		{
-			timer = new javax.swing.Timer( Config.SomethingTimer, new ActionListener()
+			timer = new javax.swing.Timer( MaConfig.SomethingTimer, new ActionListener()
 			  {
 			      public void actionPerformed(ActionEvent e)
 			      {
