@@ -19,4 +19,4 @@ API-сервер для самообучаемого чат-бота Мариш�
 
 To run server type:
 
-mvn exec:java -Dexec.mainClass="api.ApiController"
+mvn exec:java -Dexec.mainClass="com.gorcer.jMarishko.api.ApiController"

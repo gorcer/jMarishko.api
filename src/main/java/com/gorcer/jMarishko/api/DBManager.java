@@ -747,15 +747,11 @@ public class DBManager {
 		sql=" insert into talk_attr(talk_id, isHello) values ("+msg.id+", 1)";
 		else
 		sql=" update talk_attr set isHello=isHello+1 where id="+msg.attrID;
-			
-		
-		
-		int id=0;
 		
 		try {
 			Statement stmt = connection.createStatement();
 			stmt.executeUpdate(sql);
-			id = getLastInsertId();
+			/* id = getLastInsertId(); */
 	    	}
 	
 		catch (SQLException ex){
@@ -839,14 +835,11 @@ public class DBManager {
 		sql=" insert into talk_attr(talk_id, isSomething) values ("+msg.id+", 1)";
 		else
 		sql=" update talk_attr set isSomething=isSomething+1 where id="+msg.attrID;
-			
-		
-		int id=0;
 		
 		try {
 			Statement stmt = connection.createStatement();
 			stmt.executeUpdate(sql);
-			id = getLastInsertId();
+			/* id = getLastInsertId(); */
 	    	}
 	
 		catch (SQLException ex){

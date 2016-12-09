@@ -289,7 +289,7 @@ public class WordMgr {
 	private static String CropParasiteWords(String msk) {
 		
 		String result=null;
-		Vector<String> parasite = new Vector();
+		Vector<String> parasite = new Vector<String>();
 		
 		int i=0;
 		parasite.add(" а ");
