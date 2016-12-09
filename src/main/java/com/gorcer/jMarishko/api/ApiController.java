@@ -24,16 +24,23 @@ public class ApiController {
 			}	*/	    
 		});
 		
-		Spark.get("/:version/getAnswer/:phrase/:userName/", (request, response) -> {
+
+		Spark.post("/:version/getAnswer/", (request, response) -> {
 											
+			String userName = request.queryParams("userName");
+			if (userName == null) {
+				Spark.halt(401, "Need userName param");
+			}
 			
-			String phrase =  request.params(":phrase");
-			String UserName = request.params(":userName");
+			String phrase = request.queryParams("phrase");
+			if (phrase == null) {
+				Spark.halt(401, "Need phrase param");
+			}
 			
 			MaMessage msg = new MaMessage(phrase);
         	msg = DBManager.loadMessageAttr(msg);
         	
-        	MUser Author = UserMgr.getUserByName(UserName);
+        	MUser Author = UserMgr.getUserByName(userName);
         	msg.owner = Author;
         	msg = WordMgr.AppendIfItNeed(Author, msg);
         	
@@ -54,9 +61,15 @@ public class ApiController {
         	return resultJSON.toString();
 		});
 		
-		Spark.get("/:version/getHello/:userName/", (request, response) -> {
+		Spark.post("/:version/getHello/", (request, response) -> {
 			
-			MUser u = UserMgr.getUserByName(request.params(":userName"));
+			String userName = request.queryParams("userName");
+			if (userName == null) {
+				Spark.halt(401, "Need userName param");
+			}
+			
+			
+			MUser u = UserMgr.getUserByName(userName);
 			MaMessage msg = WordMgr.getHello(u);
 			
 			JSONObject resultJSON = new JSONObject();
@@ -71,9 +84,14 @@ public class ApiController {
 			
 		});
 		
-		Spark.get("/:version/getSomething/:userName/", (request, response) -> {
+		Spark.post("/:version/getSomething/", (request, response) -> {
 			
-			MUser u = UserMgr.getUserByName(request.params(":userName"));
+			String userName = request.queryParams("userName");
+			if (userName == null) {
+				Spark.halt(401, "Need userName param");
+			}
+			
+			MUser u = UserMgr.getUserByName(userName);
 			MaMessage msg = WordMgr.getSomething(u);
 			
 			JSONObject resultJSON = new JSONObject();
