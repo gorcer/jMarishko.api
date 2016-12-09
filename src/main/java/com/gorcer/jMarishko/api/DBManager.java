@@ -196,41 +196,19 @@ public class DBManager {
 	return(getLinkedWord(word));
 	}
 	
-
-	public static int processMessageByBody(MaMessage msg, MUser user) {
-
-		int id=getMessageIDByMask(msg.mask);
-			
-			if (id!=0)
-			{
-				//дописать update respect
-			}
-			else
-			{
-				id=AddTalk(msg);
-			}
-			
-			
-		
-		return(id);
-	}
 	
-	public static int processMessageByMask(MaMessage msg, MUser user) {
+	public static void processMessageByMask(MaMessage msg, MUser user) {
 
-		int id=getMessageIDByMask(msg.mask);
+		msg.id=getMessageIDByMask(msg.mask);
 			
-			if (id!=0)
+			if (msg.id!=0)
 			{
 				//дописать update respect
 			}
 			else
 			{
-				id=AddTalk(msg);
+				msg.id=AddTalk(msg);
 			}
-			
-			
-		
-		return(id);
 	}
 
 
