@@ -628,7 +628,7 @@ public class DBManager {
 					 " select t.soder, t.mask " +
 					 " from talk_attr ta" +
 					 " inner join talk t on t.id=ta.talk_id" +
-					 " where ta.isHello=1" +
+					 " where ta.isHello>0" +
 					 " order by ta.isHello desc, t.ic desc" +
 					 " Limit " + MaConfig.HelloCloudSize +
 					 " ) as tt" +
@@ -685,7 +685,7 @@ public class DBManager {
 					 " from (" +
 					 " select t.soder, t.mask " +
 					 " from talk t" +
-					 " inner join talk_attr ta on ta.talk_id=t.id and ta.isSomething=1" +
+					 " inner join talk_attr ta on ta.talk_id=t.id and ta.isSomething>0" +
 					 " " + addSql + 					 
 					 " order by ta.isSomething desc, t.ic desc" +
 					 " Limit " + MaConfig.SomethingCloudSize +
