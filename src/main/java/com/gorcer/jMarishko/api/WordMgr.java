@@ -26,10 +26,14 @@ public class WordMgr {
 		
 		if (ans==null) //Ответ не найден
 		{
-			if (Math.round(Math.random()*10)==4) // В 1 из 10 случаев говорим коронную фразу Маришки.
+			int rnd = (int) Math.round(Math.random()*10); 
+			if (rnd < 1) // В 3 из 10 случаев говорим коронную фразу Маришки.
 			{
 			ans = new MaMessage("Я не знаю что ответить.");						
 			DBManager.processMessageByMask(ans, user);
+			} else if (rnd < 5) {
+				ans = new MaMessage("Это ни на что не похоже");						
+				DBManager.processMessageByMask(ans, user);
 			}
 			
 			user.thinkAboutSomething();
