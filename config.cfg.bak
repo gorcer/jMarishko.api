@@ -1,0 +1,1 @@
+jdbc:mysql://www/ai?user=skyscream&password=PASSWORD&encoding=UTF-8&useUnicode=true&characterEncoding=UTF-8

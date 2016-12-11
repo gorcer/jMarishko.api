@@ -1,10 +1,18 @@
 package com.gorcer.jMarishko.api;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Iterator;
+import java.util.stream.Stream;
 
 public class DBManager {
 
@@ -18,11 +26,11 @@ public class DBManager {
 		    
 		    Class.forName("com.mysql.jdbc.Driver")
 		        .newInstance();
-		    System.out.println("MySQL Driver loaded");
+		   // System.out.println("MySQL Driver loaded");
 		    } 
 		  catch (Exception e) {
 		    
-		    System.out.println("Load driver Error");
+		    //System.out.println("Load driver Error");
 		    e.printStackTrace();
 		    }
 	}    
@@ -33,12 +41,27 @@ public class DBManager {
 	{
 		LoadDriver();
 		
+		 String connString="";
+		 	try {
+		 		String appPath = new File(".").getCanonicalPath();
+		 		Path path = Paths.get(appPath + "/config.cfg");
+	        
+	        	Stream<String> lines = Files.lines(path);
+	        	for (Iterator<String> i = lines.iterator(); i.hasNext();) {
+	        		connString=connString +  i.next();
+	        	}
+	            
+	        } catch (IOException ex) {
+	        	 System.out.println("Cant read from config: " + ex.getMessage());
+	        }
+		
 		try {
-			connection =
+			/*connection =
 		       DriverManager.getConnection("jdbc:mysql://localhost/ai?" +
 		                                   "user=skyscream&password=bountykiller" +
 		                                   "&encoding=UTF-8&useUnicode=true&characterEncoding=UTF-8");
-
+*/
+			connection = DriverManager.getConnection(connString);
 			
 			Statement stmt = connection.createStatement();
 	
