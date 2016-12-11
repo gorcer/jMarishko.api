@@ -159,7 +159,7 @@ public class DBManager {
 	{
 		
 	// в 1 из 3 случаев выбираем по IC
-	String sort = (Math.round(Math.random()/3)==1?"tl.ic desc":"LENGTH(t2.soder) desc");	
+	String sort = (Math.round(Math.random()/2)==1?"tl.ic desc":"LENGTH(t2.soder) desc");	
 	
 	String DialogLikeSQL ="";
 	
@@ -885,18 +885,25 @@ public class DBManager {
 			ResultSet rs = getSQLResult(sql);
 			
 			Statement stmt2 = connection.createStatement();
-			
+
 			while (rs.next())
 			{
 				rmask = WordMgr.getMask(rs.getString(1));
 				dbmask = rs.getString(2);
 				
+				rmask = rmask.replace("'", "");
+				rmask = rmask.replace("\\", "");
 				
 				if (!rmask.equals(dbmask)) 
 					{
 					cnt++;
-					sql="update talk set mask = '"+rmask+"' where id=" + rs.getInt(3);
-					stmt2.executeUpdate(sql);					}
+				
+					
+					if (rmask.length()>0) {
+						sql="update talk set mask = '"+rmask+"' where id=" + rs.getInt(3);
+						stmt2.executeUpdate(sql);
+						}
+					}
 			}
 			
 			
@@ -910,7 +917,7 @@ public class DBManager {
 			System.out.println("VendorError: " + ex.getErrorCode());
 			}
 			
-			
+			System.out.println("Total " + cnt + " updates");
 			return(cnt);
 				}
 

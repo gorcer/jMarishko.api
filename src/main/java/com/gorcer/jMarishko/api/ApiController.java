@@ -7,7 +7,7 @@ import spark.Spark;
 public class ApiController {
 	public static void main(String[] args) {
         
-
+		
 		Spark.exception(Exception.class, (exception, request, response) -> {
 		    exception.printStackTrace();
 		});
@@ -53,9 +53,9 @@ public class ApiController {
         	JSONObject resultJSON = new JSONObject();
         	
         	if (Answer == null) {
-        		resultJSON.put("answer", null);
+        		resultJSON.put("msg", null);
         	} else {
-        		resultJSON.put("answer", Answer.body);
+        		resultJSON.put("msg", Answer.body);
         	}
     		
         	return resultJSON.toString();
@@ -75,9 +75,9 @@ public class ApiController {
 			JSONObject resultJSON = new JSONObject();
 			
 			if (msg == null) {
-				resultJSON.put("hello", null);
+				resultJSON.put("msg", null);
 			} else {
-				resultJSON.put("hello", msg.body);
+				resultJSON.put("msg", msg.body);
 			}
 			
 			return resultJSON.toString();
@@ -97,13 +97,22 @@ public class ApiController {
 			JSONObject resultJSON = new JSONObject();
 			
 			if (msg == null) {
-				resultJSON.put("something", null);
+				resultJSON.put("msg", null);
 			} else {
-				resultJSON.put("something", msg.body);
+				resultJSON.put("msg", msg.body);
 			}
 			
 			return resultJSON.toString();
 			
+		});
+		
+		Spark.post("/upgrade/", (request, response) -> {
+			
+			DBManager.Connect();	
+			
+			int cnt = DBManager.RecalcAllMask();
+			
+			return cnt + " updated";
 		});
     }
 }

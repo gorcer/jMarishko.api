@@ -31,7 +31,7 @@ public class WordMgr {
 			{
 			ans = new MaMessage("Я не знаю что ответить.");						
 			DBManager.processMessageByMask(ans, user);
-			} else if (rnd < 5) {
+			} else if (rnd < 3) {
 				ans = new MaMessage("Это ни на что не похоже");						
 				DBManager.processMessageByMask(ans, user);
 			}
@@ -182,8 +182,8 @@ public class WordMgr {
 		msk=txt;
 		String str="";
 		
-		String cms = "),-(:-!@#$%^&*=_+/|][{}~`.?><'";
-		cms = cms + Character.toChars(13).toString()+Character.toChars(10).toString()+Character.toChars(0).toString();
+		String cms = "),-(:-!@#$%^&*=_+/|\\][{}~`.?><'";
+		cms = cms + Character.toString((char) 13)+Character.toString((char) 10)+Character.toString((char) 0);
 		
 		msk=msk.toLowerCase();
 		
@@ -199,12 +199,12 @@ public class WordMgr {
 		{
 			str="";
 			str+= cms.charAt(i); 
-			msk2=msk2.replace(str, "");
-			
+			msk2=msk2.replace(str, "");			
 		}
 		
 		if (msk2.length()!=0)
 			msk=msk2;
+		
 			
 		
 		
