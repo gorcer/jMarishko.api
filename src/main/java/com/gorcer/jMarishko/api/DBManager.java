@@ -465,7 +465,7 @@ public class DBManager {
 	}
 
 
-	private static int getMessageIDByMask(String msk) {
+	public static int getMessageIDByMask(String msk) {
 		
 		String sql = "select id from talk where mask='"+msk+"'";
 		try
@@ -769,6 +769,9 @@ public class DBManager {
 		
 		if (msg.id==0)
 			msg.id=getMessageIDByMask(msg.mask);
+			
+		if (msg.id==0)
+			return msg;
 			
 		String sql = " select id, isHello, isSomething from talk_attr where talk_id="+msg.id;
 

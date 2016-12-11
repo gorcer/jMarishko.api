@@ -29,14 +29,12 @@ public class MaMessage {
 	{
 		
 		msg = msg.replace("'", "");
-		setBody(msg);
-		
-		
+		setBody(msg);		
 		
 		if (msk=="")
-		this.mask = WordMgr.getMask(msg);
+			this.mask = WordMgr.getMask(msg);
 		else
-		this.mask = msk;
+			this.mask = msk;
 		
 		this.saytime = System.currentTimeMillis()/1000;
 	}

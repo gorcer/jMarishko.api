@@ -24,8 +24,41 @@ public class WordMgr {
 	{		
 		MaMessage ans = DBManager.getAnswer(msg, user, true);
 		
+		
 		if (ans==null) //Ответ не найден
 		{
+			if (MaConfig.cropPhraseOnSearchAnswer == true) {
+				MaMessage cropMessage;
+				String tmpMsg="";
+				int cropMessageId;
+				
+				String[] words = msg.body.split("\\s+");
+				int i = words.length-1;
+				while(i>0) {
+					tmpMsg="";
+					for(int j=0;j<i;j++) {
+						tmpMsg = tmpMsg + words[j]+' ';
+					}
+					cropMessage = new MaMessage(tmpMsg);
+					cropMessage.id=DBManager.getMessageIDByMask(cropMessage.mask);
+					if (cropMessage.id == 0) {
+						i--;
+						continue;
+					}
+					
+					ans = DBManager.getAnswer(cropMessage, user, true);
+					
+					if (ans!=null) {
+						user.addLog(ans,'<');
+						return ans;
+					}
+					
+					i--;
+				}
+				
+				
+			}
+			
 			int rnd = (int) Math.round(Math.random()*10); 
 			if (rnd < 1) // В 3 из 10 случаев говорим коронную фразу Маришки.
 			{
