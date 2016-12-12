@@ -13,6 +13,38 @@ public class WordMgr {
 	public static Vector<MUser> Wait4Somthing = null;
 	private static Timer timer = null;
 	
+	private static MaMessage cropPhraseOnSearchAnswer(MUser user, MaMessage msg) {
+		
+		MaMessage cropMessage, ans=null;
+		String tmpMsg="";
+		
+		String[] words = msg.body.split("\\s+");
+		int i = words.length-1;
+		while(i>0) {
+			tmpMsg="";
+			for(int j=0;j<i;j++) {
+				tmpMsg = tmpMsg + words[j]+' ';
+			}
+			cropMessage = new MaMessage(tmpMsg);
+			cropMessage.id=DBManager.getMessageIDByMask(cropMessage.mask);
+			if (cropMessage.id == 0) {
+				i--;
+				continue;
+			}
+			
+			ans = DBManager.getAnswer(cropMessage, user, true);
+			
+			if (ans!=null) {
+				user.addLog(ans,'<');
+				return ans;
+			}
+			
+			i--;
+		}
+		
+		return ans;
+		
+	}
 	/**
 	 * Получить ответ
 	 * 
@@ -28,34 +60,11 @@ public class WordMgr {
 		if (ans==null) //Ответ не найден
 		{
 			if (MaConfig.cropPhraseOnSearchAnswer == true) {
-				MaMessage cropMessage;
-				String tmpMsg="";
-				int cropMessageId;
 				
-				String[] words = msg.body.split("\\s+");
-				int i = words.length-1;
-				while(i>0) {
-					tmpMsg="";
-					for(int j=0;j<i;j++) {
-						tmpMsg = tmpMsg + words[j]+' ';
-					}
-					cropMessage = new MaMessage(tmpMsg);
-					cropMessage.id=DBManager.getMessageIDByMask(cropMessage.mask);
-					if (cropMessage.id == 0) {
-						i--;
-						continue;
-					}
-					
-					ans = DBManager.getAnswer(cropMessage, user, true);
-					
-					if (ans!=null) {
-						user.addLog(ans,'<');
-						return ans;
-					}
-					
-					i--;
+				ans = cropPhraseOnSearchAnswer(user, msg);
+				if (ans!=null) {
+					return ans;
 				}
-				
 				
 			}
 			

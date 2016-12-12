@@ -36,11 +36,7 @@ public class DBManager {
 	}    
 
 	
-	
-	static void Connect()
-	{
-		LoadDriver();
-		
+	static String loadConnectionConfig() {
 		 String connString="";
 		 	try {
 		 		String appPath = new File(".").getCanonicalPath();
@@ -54,24 +50,23 @@ public class DBManager {
 	        } catch (IOException ex) {
 	        	 System.out.println("Cant read from config: " + ex.getMessage());
 	        }
+		 	
+		 	return connString;
+	}
+	
+	static void Connect()
+	{
+		LoadDriver();
+		
+		 String connString = loadConnectionConfig();
 		
 		try {
-			/*connection =
-		       DriverManager.getConnection("jdbc:mysql://localhost/ai?" +
-		                                   "user=skyscream&password=bountykiller" +
-		                                   "&encoding=UTF-8&useUnicode=true&characterEncoding=UTF-8");
-*/
 			connection = DriverManager.getConnection(connString);
 			
 			Statement stmt = connection.createStatement();
-	
 			 
 			 stmt.executeUpdate("SET names 'utf8'");
-		//	 stmt.executeUpdate("insert into talk(soder) values('111привет222')");
-			  System.out.println("DB Connect Ok!");
-				
-				
-				
+			  //System.out.println("DB Connect Ok!");
 			 
 		} catch (SQLException ex) {
 		    // handle any errors
