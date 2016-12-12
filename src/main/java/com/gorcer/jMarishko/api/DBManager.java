@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 public class DBManager {
 
 	static Connection connection=null;
-
+	static String connString="";
 	
 	
 	static private void LoadDriver()
@@ -36,8 +36,8 @@ public class DBManager {
 	}    
 
 	
-	static String loadConnectionConfig() {
-		 String connString="";
+	static void loadConnectionConfig() {
+		 if (connString == "") {
 		 	try {
 		 		String appPath = new File(".").getCanonicalPath();
 		 		Path path = Paths.get(appPath + "/config.cfg");
@@ -46,19 +46,18 @@ public class DBManager {
 	        	for (Iterator<String> i = lines.iterator(); i.hasNext();) {
 	        		connString=connString +  i.next();
 	        	}
-	            
+	        	lines.close();
 	        } catch (IOException ex) {
 	        	 System.out.println("Cant read from config: " + ex.getMessage());
 	        }
-		 	
-		 	return connString;
+		 }
+		 
 	}
 	
 	static void Connect()
 	{
 		LoadDriver();
-		
-		 String connString = loadConnectionConfig();
+		loadConnectionConfig();
 		
 		try {
 			connection = DriverManager.getConnection(connString);

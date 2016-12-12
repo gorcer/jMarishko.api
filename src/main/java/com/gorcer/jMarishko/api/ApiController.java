@@ -120,7 +120,7 @@ public class ApiController {
 			return cnt + " updated";
 		});
 		
-		Spark.post("/system/link/", (request, response) -> {
+		Spark.post("/system/teach/", (request, response) -> {
 			String phrase = request.queryParams("phrase");
 			String userName = request.queryParams("userName");
 			
