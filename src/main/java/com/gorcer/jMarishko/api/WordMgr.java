@@ -78,11 +78,11 @@ public class WordMgr {
 				DBManager.processMessageByMask(ans, user);
 			}
 			
-			user.thinkAboutSomething();
+		//	user.thinkAboutSomething();
 		}
 		
 		if (ans!=null)
-		user.addLog(ans,'<');
+			user.addLog(ans,'<');
 		
 		return ans;
 	}
@@ -98,6 +98,30 @@ public class WordMgr {
 		//дописать
 		return false;
 	}
+	
+	public static void teach(MUser user, MaMessage msg) {
+		
+		MaMessage lm = user.getLastMsg();		
+			
+		DBManager.processMessageByMask(msg, user);
+		
+		
+		int link_id=0;
+		
+		// Первое сообщение от пользователя. Приветствие.
+		if (lm==null)	{
+			processHello(user, msg);			
+			}
+		else {			
+			link_id=LinkMessages(lm, msg); //Обработка ответа  (связывание)
+		}
+		
+		if (link_id != 0)
+		DBManager.processDialog(user,link_id);
+		
+		user.addLog(msg, '|');
+		
+	}
 
 	public static void processUserMessage(MUser user, MaMessage msg) {
 		
@@ -106,11 +130,7 @@ public class WordMgr {
 			return;
 		}
 		
-		
-		
 		MaMessage lm = user.getLastMsg();		
-		
-			
 		
 		// Если пользователь досылает сообщения, объединять их в одно
 		/*if (lm!=null)		
@@ -143,8 +163,8 @@ public class WordMgr {
 		if (link_id != 0)
 		DBManager.processDialog(user,link_id);
 		
-		user.addLog(msg, '>');
 		
+		user.addLog(msg, '>');
 	}
 
 	public static MaMessage  AppendMessage(MaMessage lm, MaMessage msg) {

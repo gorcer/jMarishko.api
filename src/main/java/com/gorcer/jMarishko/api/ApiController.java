@@ -111,13 +111,32 @@ public class ApiController {
 			
 		});
 		
-		Spark.post("/upgrade/", (request, response) -> {
+		Spark.post("/system/upgrade/", (request, response) -> {
 			
 			DBManager.Connect();	
 			
 			int cnt = DBManager.RecalcAllMask();
 			
 			return cnt + " updated";
+		});
+		
+		Spark.post("/system/link/", (request, response) -> {
+			String phrase = request.queryParams("phrase");
+			String userName = request.queryParams("userName");
+			
+			if (phrase == null) {
+				return "phrase is required";
+			}
+			
+			if (userName == null) {
+				return "userName is required";
+			}
+			
+			MaMessage msg = new MaMessage(phrase);
+			MUser u = UserMgr.getUserByName(userName);
+			WordMgr.teach(u, msg);
+			return "ok";			
+			
 		});
     }
 }

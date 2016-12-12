@@ -31,17 +31,18 @@ public class MUser {
 	
 	public void addLog(MaMessage msg, char type)
 	{
-		if (dialog.size()>0)
+		/*
+		 * dulicate
+		 * if (dialog.size()>0)
 		{
 			if (dialog.get(dialog.size()-1).type==type)
 			{
 				updLog(dialog.size()-1, WordMgr.AppendMessage(dialog.get(dialog.size()-1), msg));
 			}
-		}
+		}*/
 		
 		msg.type = type;
 		msg.owner = this;
-		
 		
 		dialog.add(msg);
 	}

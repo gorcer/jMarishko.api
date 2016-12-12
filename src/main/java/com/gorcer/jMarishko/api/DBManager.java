@@ -257,12 +257,12 @@ public class DBManager {
 
 		
 			if (msg1!=null)
-			if (msg1.id==0)
-			msg1.id = getMessageIDByBody(msg1.getBody());
+				if (msg1.id==0)
+					msg1.id = getMessageIDByMask(msg1.mask);
 			
 			if (msg2!=null)
-			if (msg2.id==0)
-			msg2.id = getMessageIDByBody(msg2.getBody());
+				if (msg2.id==0)
+						msg2.id = getMessageIDByMask(msg2.mask);
 			
 		
 			int link_id = getLinkIDbyMessages(msg1, msg2);
