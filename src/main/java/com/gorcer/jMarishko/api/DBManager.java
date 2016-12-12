@@ -924,5 +924,18 @@ public class DBManager {
 			return(cnt);
 				}
 
+
+
+	public static void Disconnect() {
+		// TODO Auto-generated method stub
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
 	
 }

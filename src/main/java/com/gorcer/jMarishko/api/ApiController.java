@@ -14,7 +14,8 @@ public class ApiController {
 		
 		Spark.before((request, response) -> {
 			
-			if (DBManager.connection == null)
+			
+			if (DBManager.connection == null || DBManager.connection.isClosed())
 				DBManager.Connect();
 			
 			/*
@@ -22,6 +23,10 @@ public class ApiController {
 			if (version != "0.1") {
 				Spark.halt(401, "Version error " +version);
 			}	*/	    
+		});
+		
+		Spark.after((request, response) -> {
+			DBManager.Disconnect();
 		});
 		
 
