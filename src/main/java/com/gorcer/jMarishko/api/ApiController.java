@@ -47,7 +47,7 @@ public class ApiController {
         	
         	MUser Author = UserMgr.getUserByName(userName);
         	msg.owner = Author;
-        	msg = WordMgr.AppendIfItNeed(Author, msg);
+        	//msg = WordMgr.AppendIfItNeed(Author, msg);
         	
         	WordMgr.processUserMessage(Author, msg);
 			
