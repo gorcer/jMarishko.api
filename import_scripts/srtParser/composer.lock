@@ -1,0 +1,46 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "8cd0ce50b24198446f02c0afb6f1f1fa",
+    "packages": [
+        {
+            "name": "delphiki/subrip-file-parser",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/delphiki/SubRip-File-Parser.git",
+                "reference": "9bf271ba4b5873a81808beb908e3dec5242333ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/delphiki/SubRip-File-Parser/zipball/9bf271ba4b5873a81808beb908e3dec5242333ff",
+                "reference": "9bf271ba4b5873a81808beb908e3dec5242333ff",
+                "shasum": ""
+            },
+            "type": "project",
+            "autoload": {
+                "psr-0": {
+                    "SrtParser": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "description": "A library for SubRip (srt) files manipulation",
+            "abandoned": "captioning/captioning",
+            "time": "2014-02-23 16:04:26"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

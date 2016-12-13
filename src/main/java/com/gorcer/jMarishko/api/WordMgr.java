@@ -112,7 +112,11 @@ public class WordMgr {
 		if (lm==null)	{
 			processHello(user, msg);			
 			}
-		else {			
+		else {	
+			
+			if (likeSomething(lm, msg)) // Если похоже на "случайное сообщение", т.е. пользователь долго не отвечал, а потом ответил.	
+				processSomething(user, msg);
+			
 			link_id=LinkMessages(lm, msg); //Обработка ответа  (связывание)
 		}
 		

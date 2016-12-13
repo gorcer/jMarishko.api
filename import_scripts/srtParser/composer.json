@@ -1,0 +1,8 @@
+{
+    "name": "gorcer/Marishko.srtParser",
+    "type": "project",
+    "require": 
+	{
+    	    "delphiki/subrip-file-parser": "1.*"
+	}
+}
