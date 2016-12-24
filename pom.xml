@@ -3,6 +3,23 @@
   <groupId>com.gorcer.Marishko</groupId>
   <artifactId>api</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+      <properties>
+        <nd4j.backend>nd4j-native-platform</nd4j.backend>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <shadedClassifier>bin</shadedClassifier>
+        <java.version>1.8</java.version>
+        <nd4j.version>0.7.1</nd4j.version>
+        <dl4j.version>0.7.1</dl4j.version>
+        <datavec.version>0.7.1</datavec.version>
+        <arbiter.version>0.7.1</arbiter.version>
+        <guava.version>19.0</guava.version>
+        <logback.version>1.1.7</logback.version>
+        <jfreechart.version>1.0.13</jfreechart.version>
+        <jcommon.version>1.0.23</jcommon.version>
+        <maven-shade-plugin.version>2.4.3</maven-shade-plugin.version>
+        <exec-maven-plugin.version>1.4.0</exec-maven-plugin.version>
+        <maven.minimum.version>3.3.1</maven.minimum.version>
+    </properties>
   <dependencies>
   	<dependency>
   		<groupId>com.sparkjava</groupId>
@@ -21,10 +38,21 @@
 	    <version>5.1.6</version>
 	</dependency>
 	<dependency>
-	            <groupId>com.googlecode.json-simple</groupId>
-	            <artifactId>json-simple</artifactId>
-	            <version>1.1.1</version>
-        	</dependency>   	
+	    <groupId>com.googlecode.json-simple</groupId>
+	    <artifactId>json-simple</artifactId>
+	    <version>1.1.1</version>
+    </dependency>
+    
+	 <dependency>
+	   <groupId>org.deeplearning4j</groupId>
+	   <artifactId>deeplearning4j-nlp</artifactId>
+	   <version>${dl4j.version}</version>
+	 </dependency>
+	 <dependency>
+	   <groupId>org.nd4j</groupId>
+	   <artifactId>nd4j-native</artifactId> 
+	   <version>${nd4j.version}</version>
+	 </dependency>   	
   </dependencies>
   
 <build>

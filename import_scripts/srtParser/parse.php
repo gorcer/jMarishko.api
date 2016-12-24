@@ -9,7 +9,10 @@ $MARISHKO_API_URL = 'http://www2:4567/';
 try{
 
 	// westworld
-	$files = scandir('./srt/');
+	$path = './srt/ww/';
+	$uname = 'friends';
+
+	$files = scandir($path);
 
 	$dialogs=[];
 	$dialogId=0;
@@ -18,7 +21,7 @@ try{
 	mb_internal_encoding("UTF-8");
 
 	foreach ($files as $fn) {
-		$fn = './srt/'.$fn;
+		$fn = $path.$fn;
 
 		if (!file_exists($fn) || !is_file($fn) || strpos($fn, '.srt') == false)
 			continue;
@@ -27,12 +30,14 @@ try{
 
 		$dialogId++;
 		foreach ($file->getSubs() as $sub) {
+
 			$texts = split("\n", $sub->getText());
+			//$texts = [ $sub->getText() ];
+
 
 			foreach($texts as $text) {
 
 				$currTime = $sub->getStart();
-				$text = $sub->getText();
 
 				if ($currTime - $prevTime > 60 * 1000) {
 					$dialogId++;
@@ -49,9 +54,16 @@ try{
 				$prevTime = $currTime;
 			}
 
+
+			/*if ($dialogId > 3) {
+				var_dump($dialogs);
+				die();
+			}*/
+
 		}
 
 	}
+
 
 	echo "Total dialogs: " . count($dialogs).PHP_EOL;
 	echo "Total phrases: " . $cnt.PHP_EOL;
@@ -63,7 +75,7 @@ try{
 
 			$myCurl = curl_init();
 
-			$userName = 'WestWorld' . $id;
+			$userName = $uname . $id;
 
 			curl_setopt_array($myCurl, array(
 				CURLOPT_URL => $MARISHKO_API_URL.'system/teach/',
