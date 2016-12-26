@@ -1,6 +1,8 @@
 package com.gorcer.jMarishko.api;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -928,6 +930,36 @@ public class DBManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+	}
+
+
+	public static void saveTalkToFile(String toFile) throws Exception {
+		// TODO Auto-generated method stub
+		String appPath = new File(".").getCanonicalPath();
+		
+		
+		String sql = " select t.soder " +
+		 " from talk t" +	  					 
+		 " order by t.id";
+		
+		ResultSet rs = getSQLResult(sql);		
+		Statement stmt = connection.createStatement();
+		
+		// Create file
+        FileWriter fstream = new FileWriter(appPath + toFile, false);
+        BufferedWriter out = new BufferedWriter(fstream);
+        
+        System.out.println("Выгружаем базу фраз...");
+		while (rs.next()) {			
+	        out.write(rs.getString(1));
+	        out.newLine();
+	        
+		}
+		System.out.println("Готово...");
+		//Close the output stream
+        out.close();
+			
 		
 	}
 

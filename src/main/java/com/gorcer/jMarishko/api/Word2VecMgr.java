@@ -16,17 +16,20 @@ import java.io.File;
 import java.util.Collection;
 
 public class Word2VecMgr {
+	
+	
 	private static Logger log = LoggerFactory.getLogger(Word2VecMgr.class);
+	private static String pathToVectors="/data/vectors.dat";
 
-    public static void main(String[] args) throws Exception {
-
-        // Gets Path to Text file
+	
+	private static void prepareDictionary(String sourceFile) throws Exception {
+		// Gets Path to Text file
         //String filePath = new ClassPathResource("raw_sentences.txt").getFile().getAbsolutePath();
     	String appPath = new File(".").getCanonicalPath();
     	
         log.info("Load & Vectorize Sentences....");
         // Strip white space before and after for each line
-        SentenceIterator iter = new BasicLineIterator(appPath + "/raw_sentences.txt");
+        SentenceIterator iter = new BasicLineIterator(appPath + sourceFile);
         // Split on white spaces in the line to get words
         TokenizerFactory t = new DefaultTokenizerFactory();
 
@@ -54,12 +57,36 @@ public class Word2VecMgr {
         log.info("Writing word vectors to text file....");
 
         // Write word vectors to file
-        WordVectorSerializer.writeWordVectors(vec, "pathToWriteto.txt");
+        //WordVectorSerializer.writeWordVectors(vec, appPath + pathToVectors);
+        WordVectorSerializer.writeWord2VecModel(vec, appPath + pathToVectors);
 
+	}
+	
+    public static void main(String[] args) throws Exception {
+    	
+    	String appPath = new File(".").getCanonicalPath();
+    	/*
+    	String sourceFile = "/tmp/source.txt";
+    	
+    	DBManager.Connect();
+    	DBManager.saveTalkToFile(sourceFile);
+    	prepareDictionary(sourceFile);
+*/
+    	Word2Vec vec = WordVectorSerializer.readWord2Vec(new File (appPath + pathToVectors));
+    	
+    	
         // Prints out the closest 10 words to "day". An example on what to do with these Word Vectors.
         log.info("Closest Words:");
-        Collection<String> lst = vec.wordsNearest("day", 10);
-        System.out.println("10 Words closest to 'day': " + lst);
+        Collection<String> lst = vec.wordsNearest("пить", 10);
+        System.out.println("10 Words closest to 'привет': " + lst);
+        
+        
+        
+        System.out.println("Здарова: " + vec.getWordVector("здарова").toString());
+        System.out.println("Здравствуйте: " + vec.similarity("привет", "здравствуйте"));
+        System.out.println("hi: " + vec.similarity("привет", "hi"));        
+        System.out.println("привет: " + vec.similarity("привет", "привет"));
+        
 
         // TODO resolve missing UiServer
 //        UiServer server = UiServer.getInstance();

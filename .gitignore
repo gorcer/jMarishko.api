@@ -1,4 +1,5 @@
 .*
 target
 config.cfg
+db/*
 !.gitignore
